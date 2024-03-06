@@ -9,7 +9,6 @@ output: html_document
 
 ```{r load-packages, message=FALSE}
 library(tidyverse)
-library(lubridate)
 ```
 
 ## Exercises
