@@ -18,16 +18,34 @@ library(janitor)
 ## Exercises
 
 ### Exercise 1
-
-Remove this text, and add your answer for Exercise 1 here.
+```{r inspect-earthquakes}
+skim(earthquakes)
+```
+The skim function serves as a read function in order to view the earthquake data.
 
 ### Exercise 2
+```{r label-me1, eval=FALSE}
+earthquakes_1 <- read_csv("data/earthquakes-1.csv",show_col_types = F)
 
-Remove this text, and add your answer for Exercise 2 here.
+earthquakes_2 <- read_csv("data/earthquakes-2.txt",show_col_types = F)
+
+earthquakes_3 <- read_xlsx("data/earthquakes-3.xlsx")
+```
 
 ### Exercise 3
 
-Remove this text, and add your answer for Exercise 3 here.
+```{r inspect-earthquakes-1}
+glimpse(earthquakes_1)
+```
+```{r inspect-earthquakes-2}
+glimpse(earthquakes_2)
+```
+```{r inspect-earthquakes-3}
+glimpse(earthquakes_3)
+```
+1. None of the three earthquakes data sets above contain an independent Richter variable like the introductory earthquakes data set does.
+2.The deaths variable in earthquakes_3 is a character string rather than a numerical string. 
+3. The purpose of the coerce-earthquakes-3 code chunk is to coerce the deaths variable into the numerical data type.
 
 ### Exercise 4
 
