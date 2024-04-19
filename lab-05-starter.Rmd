@@ -27,7 +27,7 @@ The skim function serves as a read function in order to view the earthquake data
 ```{r label-me1, eval=FALSE}
 earthquakes_1 <- read_csv("data/earthquakes-1.csv",show_col_types = F)
 
-earthquakes_2 <- read_csv("data/earthquakes-2.txt",show_col_types = F)
+earthquakes_2 <- read_tsv("data/earthquakes-2.txt",show_col_types = F)
 
 earthquakes_3 <- read_xlsx("data/earthquakes-3.xlsx")
 ```
@@ -43,13 +43,17 @@ glimpse(earthquakes_2)
 ```{r inspect-earthquakes-3}
 glimpse(earthquakes_3)
 ```
-1. None of the three earthquakes data sets above contain an independent Richter variable like the introductory earthquakes data set does.
+1. The first data set is missing the Richter and deaths variables. The second data set is missing the deaths and region/area variables. The third data set is missing the Richter and region/area variables.
 2.The deaths variable in earthquakes_3 is a character string rather than a numerical string. 
 3. The purpose of the coerce-earthquakes-3 code chunk is to coerce the deaths variable into the numerical data type.
 
 ### Exercise 4
 
-Remove this text, and add your answer for Exercise 4 here.
+```{r join-earthquakes}
+earthquakes_1 %>% full_join(earthquakes_2, by=c("year","month","day")) %>% full_join(earthquakes_3, by=c("year","month","day")) %>% skim()
+
+```
+
 
 ### Exercise 5
 
