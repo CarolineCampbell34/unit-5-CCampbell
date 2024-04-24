@@ -57,24 +57,49 @@ earthquakes_1 %>% full_join(earthquakes_2, by=c("year","month","day")) %>% full_
 
 ### Exercise 5
 
-Remove this text, and add your answer for Exercise 5 here.
+```{r read-inspect, eval = F}
+read_csv("data/earthquakes-badnames-na.csv") %>% 
+  glimpse()
+```
 
 ### Exercise 6
 
-Remove this text, and add your answer for Exercise 6 here.
+```{r fix-nas, eval = F}
+earthquakes_goodnames <- read_csv("data/earthquakes-badnames-na.csv",na = c("NA",".")) 
+```
 
 ### Exercise 7
 
-Remove this text, and add your answer for Exercise 7 here.
+```{r fix-names, eval = F}
+earthquakes_goodnames <- read_csv("data/earthquakes-badnames-na.csv",na = c("NA",".")) %>% rename(deaths=`total deaths`, area=`area within region`) 
+```
+
 
 ### Exercise 8
 
-Remove this text, and add your answer for Exercise 8 here.
+```{r fix-richter, message = F, warning = F}
+earthquakes_goodnames <- read_csv("data/earthquakes-badnames-na.csv",na = c("NA",".")) %>% rename(deaths=`total deaths`, area=`area within region`) %>% mutate(richter=case_when(richter=="seven"~"7",
+                                                                                                                                                                                 T~richter)) %>% 
+  mutate(richter=as.numeric(richter))
+
+```
 
 ### Exercise 9
 
-Remove this text, and add your answer for Exercise 9 here.
+```{r relevel-month, message = F, warning = F}
+earthquakes_correct <- 
+  earthquakes_goodnames <- read_csv("data/earthquakes-badnames-na.csv",na = c("NA",".")) %>% rename(deaths=`total deaths`, area=`area within region`) %>% mutate(richter=case_when(richter=="seven"~"7",
+                                                                                                                                                                                 T~richter)) %>% 
+  mutate(richter=as.numeric(richter)) %>%
+  mutate(month=fct_relevel(month, c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))) 
+earthquakes_correct %>% count(month)
+
+```
 
 ### Exercise 10
 
-Remove this text, and add your answer for Exercise 10 here.
+```{r write-read-rds, message = F, warning = F}
+earthquakes_correct %>% saveRDS("data/earthquakes_correct.rds")
+  readRDS("data/earthquakes_correct.rds") %>% 
+    count(month)
+```
